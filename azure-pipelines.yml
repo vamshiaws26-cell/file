@@ -1,0 +1,17 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: echo "Installing Node..."
+  displayName: Install Node
+
+- script: |
+    echo "Running App"
+    node app.js
+  displayName: Run App
+
+- script: echo "Build Successful 🎉"
+  displayName: Build Complete
