@@ -2,16 +2,24 @@ trigger:
 - main
 
 pool:
-  name: Default   # ✅ use your self-hosted agent
+  vmImage: 'windows-latest'
 
 steps:
-- script: echo "Installing Node..."
-  displayName: Install Node
+- script: echo Building project...
+  displayName: 'Build Step'
 
+- script: echo Deploying project...
+  displayName: 'Deploy Step'
+
+# Create artifact
 - script: |
-    echo "Running App"
-    node app.js
-  displayName: Run App
+    mkdir $(Build.ArtifactStagingDirectory)
+    echo Hi, I am from future > $(Build.ArtifactStagingDirectory)\output.txt
+    dir $(Build.ArtifactStagingDirectory)
+  displayName: 'Create Artifact File'
 
-- script: echo "Build Successful 🎉"
-  displayName: Build Complete
+# Publish artifact
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'drop'
