@@ -5,21 +5,5 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- script: echo Building project...
-  displayName: 'Build Step'
-
-- script: echo Deploying project...
-  displayName: 'Deploy Step'
-
-# Create artifact
-- script: |
-    mkdir $(Build.ArtifactStagingDirectory)
-    echo Hi, I am from future > $(Build.ArtifactStagingDirectory)\output.txt
-    dir $(Build.ArtifactStagingDirectory)
-  displayName: 'Create Artifact File'
-
-# Publish artifact
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'drop'
+- script: echo "Building app..."
+- script: echo "Testing app..."
